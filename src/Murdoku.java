@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Murdoku {
-
+        
     static final int TAM = 7;
 
     // Identificadores de las zonas
@@ -61,7 +61,7 @@ public class Murdoku {
 
 
     public static void main(String[] args) {
-
+          System.out.println("HOLA");
     }
 
     // Devuelve el símbolo correspondiente a un elemento
@@ -104,5 +104,6 @@ public class Murdoku {
             || elemento == ALFOMBRA;
 
     }
+    
 
 }

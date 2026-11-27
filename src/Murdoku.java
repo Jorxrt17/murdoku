@@ -64,7 +64,7 @@ public class Murdoku {
 
     public static void main(String[] args) {
         mostrartablero(elementos, tablero);
-        colocar(tablero, letras, colocados, false);
+        colocar(tablero, letras, colocados, false, zonas);
         mostrartablero(elementos, tablero);
     }
 
@@ -90,7 +90,7 @@ public class Murdoku {
 
             case MESA:
                 return 'M';
-             case OCUPADO:
+            case OCUPADO:
                 return 'x';
 
             default:
@@ -114,30 +114,30 @@ public class Murdoku {
     public static void mostrartablero(int[][] elementos, char[][] tablero) {
         for (int i = 0; i < colocados.length; i++) {
             for (int j = 0; j < colocados.length; j++) {
-                if (tablero[i][j]!='x') {
-                    if (elementos[i][j] == 1) {
-                    tablero[i][j] = simboloElemento(1);
+                if (tablero[i][j] != 'x') {
+                    if (elementos[i][j] == 1 && tablero[i][j] != 'b') {
+                        tablero[i][j] = simboloElemento(1);
+                    }
+                    if (elementos[i][j] == 2 && tablero[i][j] != 'a') {
+                        tablero[i][j] = simboloElemento(2);
+                    }
+                    if (elementos[i][j] == 3) {
+                        tablero[i][j] = simboloElemento(3);
+                    }
+                    if (elementos[i][j] == 4) {
+                        tablero[i][j] = simboloElemento(4);
+                    }
+                    if (elementos[i][j] == 5) {
+                        tablero[i][j] = simboloElemento(5);
+                    }
+                    if (elementos[i][j] == 6) {
+                        tablero[i][j] = simboloElemento(6);
+                    }
+                    if (elementos[i][j] == 0) {
+                        tablero[i][j] = simboloElemento(9);
+                    }
                 }
-                if (elementos[i][j] == 2) {
-                    tablero[i][j] = simboloElemento(2);
-                }
-                if (elementos[i][j] == 3) {
-                    tablero[i][j] = simboloElemento(3);
-                }
-                if (elementos[i][j] == 4) {
-                    tablero[i][j] = simboloElemento(4);
-                }
-                if (elementos[i][j] == 5) {
-                    tablero[i][j] = simboloElemento(5);
-                }
-                if (elementos[i][j] == 6) {
-                    tablero[i][j] = simboloElemento(6);
-                }
-                if (elementos[i][j] == 0) {
-                    tablero[i][j] = simboloElemento(9);
-                }
-                }
-               
+
             }
 
         }
@@ -151,9 +151,10 @@ public class Murdoku {
 
     }
 
-    public static void colocar(char[][] tablero, char[] letras, boolean[] colocados,boolean esTransitable) {
+    public static void colocar(char[][] tablero, char[] letras, boolean[] colocados, boolean esTransitable,
+            int[][] zonas) {
         int nombre = 0;
-        
+
         int x = 0;
         int y = 0;
         do {
@@ -164,9 +165,33 @@ public class Murdoku {
             System.out.println("elige posicion y");
             y = sc.nextInt();
             if (x < tablero.length && x >= 0 && y < tablero.length && y >= 0) {
-                if (colocados[nombre] == false && esTransitable==false) {
-                    if(tablero[x][y]!='x'){
-                        colocados[nombre]=true;
+                if (colocados[nombre] == false && esTransitable == false) {
+                    if (tablero[x][y] != 'x') {
+                        if (nombre == 0) {
+                            if (tablero[x][y] == '=') {
+                                tablero[x][y] = 'a';
+                                colocados[nombre] = true;
+                            } else {
+                                System.out.println(
+                                   "Avery solo se puede colocar en una alfombrilla , en estas casillas (=)");
+                            }
+
+                        }
+                        if (nombre == 1) {
+                            if (tablero[x][y] == 'S') {
+                                if (zonas[x][y] == 4) {
+                                    tablero[x][y] = 'b';
+                                    colocados[nombre] = true;
+                                } else {
+                                    System.out.println(
+                                      "Bruno solo se puede colocar en la zona cebador casilla de zona (2)");
+                                }
+                            } else {
+                                System.out.println("Bruno solo se puede colocar en una silla , en estas casillas (S)");
+                            }
+                        }
+                    } else {
+                        System.out.println("Estas colocando un personaje ne una x");
                     }
                 } else {
                     System.out.println("El personaje ya esta colocado o sitio no transitable  ");
@@ -175,18 +200,25 @@ public class Murdoku {
             } else {
                 System.out.println("No se puede colocar aqui el personaje por que te has salido del tablero ");
             }
-        } while (colocados[nombre]=false);
-         colocarX(tablero, x, y);
+        } while (colocados[nombre] = false);
+        colocarX(tablero, x, y);
     }
-    public static void colocarX (char [][] Tablero,int x,int y){
+
+    public static void colocarX(char[][] Tablero, int x, int y) {
 
         for (int i = 0; i < Tablero.length; i++) {
-            tablero[x][i]=simboloElemento(7);
+            if (tablero[x][i] != tablero[x][y]) {
+                tablero[x][i] = simboloElemento(7);
+            }
+
         }
         for (int i = 0; i < Tablero.length; i++) {
-              tablero[i][y]=simboloElemento(7);
+            if (tablero[i][y] != tablero[x][y]) {
+                tablero[i][y] = simboloElemento(7);
+            }
+
         }
-        
+
     }
-    
+
 }

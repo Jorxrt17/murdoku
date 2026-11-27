@@ -115,10 +115,10 @@ public class Murdoku {
         for (int i = 0; i < colocados.length; i++) {
             for (int j = 0; j < colocados.length; j++) {
                 if (tablero[i][j] != 'x') {
-                    if (elementos[i][j] == 1 && tablero[i][j] != 'b') {
+                    if (elementos[i][j] == 1 && tablero[i][j] != 'b' && tablero[i][j] != 'c' ) {
                         tablero[i][j] = simboloElemento(1);
                     }
-                    if (elementos[i][j] == 2 && tablero[i][j] != 'a') {
+                    if (elementos[i][j] == 2 && tablero[i][j] != 'a' && tablero[i][j] != 'c' ) {
                         tablero[i][j] = simboloElemento(2);
                     }
                     if (elementos[i][j] == 3) {
@@ -133,7 +133,7 @@ public class Murdoku {
                     if (elementos[i][j] == 6) {
                         tablero[i][j] = simboloElemento(6);
                     }
-                    if (elementos[i][j] == 0) {
+                    if (elementos[i][j] == 0 && tablero[i][j] != 'c') {
                         tablero[i][j] = simboloElemento(9);
                     }
                 }
@@ -173,7 +173,7 @@ public class Murdoku {
                                 colocados[nombre] = true;
                             } else {
                                 System.out.println(
-                                   "Avery solo se puede colocar en una alfombrilla , en estas casillas (=)");
+                                        "Avery solo se puede colocar en una alfombrilla , en estas casillas (=)");
                             }
 
                         }
@@ -184,14 +184,28 @@ public class Murdoku {
                                     colocados[nombre] = true;
                                 } else {
                                     System.out.println(
-                                      "Bruno solo se puede colocar en la zona cebador casilla de zona (2)");
+                                            "Bruno solo se puede colocar en la zona cebador casilla de zona (2)");
                                 }
                             } else {
                                 System.out.println("Bruno solo se puede colocar en una silla , en estas casillas (S)");
                             }
+
                         }
+
+                        if (nombre == 2) {
+
+                            if (zonas[x][y] == 1) {
+                                tablero[x][y] = 'c';
+                                colocados[nombre] = true;
+                            } else {
+                                System.out.println("Christian solo se puede poner en zona picnic (1) ");
+
+                            }
+
+                        }
+
                     } else {
-                        System.out.println("Estas colocando un personaje ne una x");
+                        System.out.println("Estas colocando un personaje en una x");
                     }
                 } else {
                     System.out.println("El personaje ya esta colocado o sitio no transitable  ");
